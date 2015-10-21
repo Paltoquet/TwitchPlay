@@ -7,7 +7,6 @@ import java.util.Scanner;
  */
 public class InputThread extends Thread {
     boolean running = true;
-    boolean echo = true;
     MonListener a;
 
     public InputThread(MonListener b) {
@@ -21,7 +20,13 @@ public class InputThread extends Thread {
             Scanner sc = new Scanner(System.in);
             String str = sc.next();
             if (str != null) {
-                a.notifie();
+                System.out.println(str);
+                if(str.equals("q")) {
+                    a.notifie();
+                }
+                else {
+                    a.notifie(str,Http.getDefinition(str));
+                }
             }
         }
     }

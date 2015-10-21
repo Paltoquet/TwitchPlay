@@ -1,5 +1,7 @@
 
 
+import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
@@ -14,7 +16,8 @@ import java.util.GregorianCalendar;
  */
 public class MonListener extends ListenerAdapter {
 
-    boolean echo=true;
+    boolean echo=false;
+    PircBotX bot;
     public MonListener(){
         super();
         InputThread t=new InputThread(this);
@@ -57,5 +60,14 @@ public class MonListener extends ListenerAdapter {
                 event.respond(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY))+"heures "+String.valueOf(calendar.get(Calendar.MINUTE))+" minutes"+String.valueOf(calendar.get(Calendar.SECOND))+" secondes");
             }
 
+    }
+
+    public void notifie(String p,String def){
+       bot.sendIRC().message(Main.chan,p+": "+def);
+
+    }
+
+    public void setBot(PircBotX b){
+        bot=b;
     }
 }
